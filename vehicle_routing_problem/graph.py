@@ -7,8 +7,8 @@ class Graph():
     adj_matrix : dict
         Adjacency matrix that represents routes between cities i.e:
         {
-            'Krakow': { 'Warszawa': 123 },
-            'Warszawa': { 'Krakow': 123 }
+            'Krakow': {'Warszawa':123},
+            'Warszawa': {'Krakow':123},
         }
     """
 
