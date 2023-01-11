@@ -15,7 +15,7 @@ class Graph():
     def __init__(self):
         self.adj_matrix: dict = {}
 
-    def add_edge(self, city1: str, city2: str, distance: int):
+    def add_edge(self, city1: str, city2: str, distance: float):
         if city1 not in self.adj_matrix:
             self.adj_matrix[city1] = {}
         if city2 not in self.adj_matrix:
