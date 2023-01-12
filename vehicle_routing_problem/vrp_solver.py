@@ -30,6 +30,8 @@ def fitness(
         cities=cities
     )
 
+    log(f'car_routes = {car_routes}')
+
     demand_satisfied = calculate_demand(
         routes=car_routes,
         car_capacity=car_capacity,
