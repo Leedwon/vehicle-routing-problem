@@ -1,6 +1,9 @@
 import random
 
 
+from vehicle_routing_problem.graph import Graph
+from vehicle_routing_problem.parser.demand_parser import parse_cities_demand
+from vehicle_routing_problem.parser.graph_parser import parse_graph
 def fitness(
     individual: list,
     starting_city: str,
@@ -56,3 +59,16 @@ def create_random_routes(
 def random_order_and_vehicle(cars_count: int) -> float:
     """generate random order and vehicle encoded as random key integer part represents car index and fractional part represents order"""
     return random.random() + random.randint(0, cars_count - 1)
+
+
+def solve():
+    starting_city = "Kraków"
+    cars_count = 5
+    car_capacity = 1_000
+    cities_demand = parse_cities_demand("resources/cities_demand.txt")
+    
+    cities = [city for city in cities_demand.keys()]
+    total_demand = sum(cities_demand.values())
+
+    cities_graph = parse_graph("resources/cities_matrix.xlsx", cities=31)
+    
