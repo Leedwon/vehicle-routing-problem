@@ -4,6 +4,15 @@ import random
 from vehicle_routing_problem.graph import Graph
 from vehicle_routing_problem.parser.demand_parser import parse_cities_demand
 from vehicle_routing_problem.parser.graph_parser import parse_graph
+
+LOGGING_ENABLED = True
+
+
+def log(msg: str):
+    if (LOGGING_ENABLED):
+        print(msg)
+
+
 def fitness(
     individual: list,
     starting_city: str,
