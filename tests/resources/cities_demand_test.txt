@@ -1,0 +1,4 @@
+Białystok,500
+Bielsko-Biała,50
+Chrzanów,400
+Gdańsk,200

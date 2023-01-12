@@ -23,3 +23,6 @@ class Graph():
 
         self.adj_matrix[city1][city2] = distance
         self.adj_matrix[city2][city1] = distance
+
+    def distance(self, from_city: str, to_city: str) -> float:
+        return self.adj_matrix[from_city][to_city]
