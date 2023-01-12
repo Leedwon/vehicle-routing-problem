@@ -17,8 +17,12 @@ def fitness(
     individual: list,
     starting_city: str,
     cars_count: int,
-    cities: list
+    car_capacity: int,
+    cities_demand: dict,
+    cities_graph: Graph,
 ) -> float:
+    cities = [city for city in cities_demand.keys()]
+
     car_routes = extract_rotues_for_cars(
         starting_city=starting_city,
         individual=individual,
@@ -26,8 +30,41 @@ def fitness(
         cities=cities
     )
 
-    # TODO car routes are ready now calculate fitness
+    demand_satisfied = calculate_demand(
+        routes=car_routes,
+        car_capacity=car_capacity,
+        cities_demand=cities_demand
+    )
+
+    log(f'demand_satisfied = {demand_satisfied}')
+
     pass
+
+
+def calculate_demand(
+    routes: list,
+    car_capacity: int,
+    cities_demand: dict
+) -> int:
+    cars_capacities = [car_capacity for car in range(0, len(routes))]
+
+    visited_cities = set()
+
+    total_demand = 0
+
+    for index, route in enumerate(routes):
+        for city in route[1:]:  # omitting initial_city as it has no demand
+            # don't add demand if city was already visited
+            # each city should be visited only once - visiting it twice can be a caused by infeasible reproduction
+            # this will penalize such cases
+            if city not in visited_cities:
+                demand = cities_demand[city]
+                if cars_capacities[index] >= demand:
+                    cars_capacities[index] -= demand
+                    total_demand += demand
+                    visited_cities.add(city)
+
+    return total_demand
 
 
 def extract_rotues_for_cars(
@@ -75,9 +112,21 @@ def solve():
     cars_count = 5
     car_capacity = 1_000
     cities_demand = parse_cities_demand("resources/cities_demand.txt")
-    
-    cities = [city for city in cities_demand.keys()]
+
     total_demand = sum(cities_demand.values())
 
     cities_graph = parse_graph("resources/cities_matrix.xlsx", cities=31)
-    
+
+    individual = create_random_routes(
+        cities=cities_demand.keys(),
+        cars_count=cars_count
+    )
+
+    fitness(
+        individual=individual,
+        starting_city=starting_city,
+        cars_count=cars_count,
+        car_capacity=car_capacity,
+        cities_demand=cities_demand,
+        cities_graph=cities_graph
+        )
