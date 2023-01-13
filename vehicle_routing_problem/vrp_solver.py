@@ -4,7 +4,7 @@ from vehicle_routing_problem.fitness import fitness
 from vehicle_routing_problem.initial_population_factory import create_initial_population
 from vehicle_routing_problem.parser.demand_parser import parse_cities_demand
 from vehicle_routing_problem.parser.graph_parser import parse_graph
-from vehicle_routing_problem.parents_selector import select_parents
+from vehicle_routing_problem.selection import select_parents
 
 from vehicle_routing_problem.logger import log
 
