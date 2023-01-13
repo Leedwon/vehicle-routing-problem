@@ -2,16 +2,16 @@ import random
 
 def select_parents(individuals_with_fitness: list) -> tuple:
     """returns pair of parents for reproduction"""
-    first_parent = select_one(individuals_with_fitness)
+    first_parent = select_individual(individuals_with_fitness)
 
     individuals_with_fitness.remove(first_parent)
 
-    second_parent = select_one(individuals_with_fitness)
+    second_parent = select_individual(individuals_with_fitness)
 
     return (first_parent[0], second_parent[0])
 
 
-def select_one(individuals_with_fitness: list):
+def select_individual(individuals_with_fitness: list):
     fitnesses = [fitness for (individual, fitness) in individuals_with_fitness]
     fitness_sum = sum(fitnesses)
 
