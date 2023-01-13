@@ -1,5 +1,8 @@
+from vehicle_routing_problem.vrp_solver import solve
+
+
 def main():
-    pass
+    solve()
 
 
 if __name__ == "__main__":
