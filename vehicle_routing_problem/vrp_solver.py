@@ -1,4 +1,4 @@
-from vehicle_routing_problem.fitness_calculator import fitness
+from vehicle_routing_problem.fitness import fitness
 
 
 from vehicle_routing_problem.initial_population_factory import create_initial_population
