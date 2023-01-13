@@ -38,9 +38,40 @@ def fitness(
         cities_demand=cities_demand
     )
 
-    log(f'demand_satisfied = {demand_satisfied}')
+    total_demand = sum(cities_demand.values())
 
-    pass
+    log(f'demand_satisfied = {demand_satisfied} total_demand = {total_demand}')
+
+    distance = calculate_distance(
+        routes=car_routes,
+        cities_graph=cities_graph
+    )
+
+    log(f'distance = {distance}')
+
+    penalty = (total_demand - demand_satisfied) * 10 # total demand is more important than short distance
+
+    log(f'penalty = {penalty}')
+
+    total = distance + penalty # TODO adjust parameters
+    fitness = 10_000 / total # since higher is better 
+
+    log(f'fitness = {fitness}')
+    return fitness
+
+
+def calculate_distance(routes: list, cities_graph: Graph) -> float:
+    sums = [route_distance(route, cities_graph) for route in routes]
+    return sum(sums)
+
+
+def route_distance(route: list, cities_graph: Graph) -> float:
+    pairs = zip(route, route[1:])
+    distance = 0
+    for (from_city, to_city) in pairs:
+        addition = cities_graph.distance(from_city, to_city)
+        distance += addition
+    return distance
 
 
 def calculate_demand(
