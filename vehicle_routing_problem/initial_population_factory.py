@@ -1,4 +1,4 @@
-import random
+from vehicle_routing_problem.util import random_order_and_vehicle
 
 
 def create_initial_population(
@@ -14,8 +14,3 @@ def create_random_routes(
     cars_count: int,
 ) -> list:
     return [random_order_and_vehicle(cars_count) for _ in cities]
-
-
-def random_order_and_vehicle(cars_count: int) -> float:
-    """generate random order and vehicle encoded as random key integer part represents car index and fractional part represents order"""
-    return random.random() + random.randint(0, cars_count - 1)
