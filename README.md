@@ -5,6 +5,10 @@ Before running project locally:
 2. Install requirements by running `env/bin/pip install -r requirements.txt` 
    (also check subpackages if the contain their own `requirements.txt` file and install them, if they're present).
 
+### Running vrp solver
+
+To solve vrp problem for given [resources](/resources/) simple call `python main.py`. After running for a while it should print a result with best fitness.
+
 ### Running tests
 
 To run tests simple call `pytest tests`
