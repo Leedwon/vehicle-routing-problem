@@ -31,7 +31,7 @@ def fitness(
     )
 
     # total demand is more important than short distance
-    penalty = (total_demand - demand_satisfied) * 10
+    penalty = (total_demand - demand_satisfied) * 50
 
     total = distance + penalty  # TODO adjust parameters
     fitness = 10_000 / total  # since higher is better
