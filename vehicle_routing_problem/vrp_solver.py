@@ -18,6 +18,7 @@ def solve():
     population_size = 100
     cities_demand = parse_cities_demand("resources/cities_demand.txt")
     cities = [city for city in cities_demand.keys()]
+    total_demand = sum(cities_demand.values())
 
     cities_graph = parse_graph("resources/cities_matrix.xlsx", cities=31)
 
@@ -90,5 +91,6 @@ def solve():
             best_fitness = {current_best_fitness},
             best_distance = {distance},
             best_demand = {demand}
+            total_demand = {total_demand}
             '''
     )
