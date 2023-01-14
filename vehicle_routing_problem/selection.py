@@ -4,15 +4,18 @@ def select_parents(individuals_with_fitness: list) -> tuple:
     """returns pair of parents for reproduction"""
     first_parent = select_individual(individuals_with_fitness)
 
-    individuals_with_fitness.remove(first_parent)
+    individuals = [individual for (individual, _) in individuals_with_fitness]
+    first_parent_index = individuals.index(first_parent)
+
+    individuals_with_fitness.pop(first_parent_index)
 
     second_parent = select_individual(individuals_with_fitness)
 
-    return (first_parent[0], second_parent[0])
+    return (first_parent, second_parent)
 
 
 def select_individual(individuals_with_fitness: list):
-    fitnesses = [fitness for (individual, fitness) in individuals_with_fitness]
+    fitnesses = [fitness for (_, fitness) in individuals_with_fitness]
     fitness_sum = sum(fitnesses)
 
     running_sum = 0
@@ -21,6 +24,6 @@ def select_individual(individuals_with_fitness: list):
     for (individual, fitness) in individuals_with_fitness:
         running_sum += fitness
         if running_sum >= stop_condition:
-            return (individual, fitness) # returning both individual and fitness so it can be removed from the original list. It's a bit cheesy, but good enough for now.
+            return individual
     
     raise("Individual was not return")
