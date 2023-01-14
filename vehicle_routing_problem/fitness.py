@@ -1,6 +1,4 @@
 from vehicle_routing_problem.graph import Graph
-from vehicle_routing_problem.logger import log
-
 
 def fitness(
     individual: list,
@@ -19,8 +17,6 @@ def fitness(
         cities=cities
     )
 
-    log(f'car_routes = {car_routes}')
-
     demand_satisfied = calculate_demand(
         routes=car_routes,
         car_capacity=car_capacity,
@@ -29,25 +25,18 @@ def fitness(
 
     total_demand = sum(cities_demand.values())
 
-    log(f'demand_satisfied = {demand_satisfied} total_demand = {total_demand}')
-
     distance = calculate_distance(
         routes=car_routes,
         cities_graph=cities_graph
     )
 
-    log(f'distance = {distance}')
-
     # total demand is more important than short distance
     penalty = (total_demand - demand_satisfied) * 10
-
-    log(f'penalty = {penalty}')
 
     total = distance + penalty  # TODO adjust parameters
     fitness = 10_000 / total  # since higher is better
 
-    log(f'fitness = {fitness}')
-    return fitness
+    return (fitness, distance, demand_satisfied)
 
 
 def calculate_distance(routes: list, cities_graph: Graph) -> float:
