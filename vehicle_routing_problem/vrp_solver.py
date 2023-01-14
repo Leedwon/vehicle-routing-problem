@@ -15,11 +15,11 @@ def solve():
     starting_city = "Kraków"
     cars_count = 5
     car_capacity = 1_000
-    population_size = 500
+    population_size = 1000
     cities_demand = parse_cities_demand("resources/cities_demand.txt")
     cities = [city for city in cities_demand.keys()]
     total_demand = sum(cities_demand.values())
-
+    percentage_of_elite_individuals = 0.05
     cities_graph = parse_graph("resources/cities_matrix.xlsx", cities=31)
 
     current_best_fitness = 0
@@ -27,7 +27,7 @@ def solve():
     demand = 0
     routes = []
 
-    populations_limit = 1_000
+    populations_limit = 1000
 
     population = create_initial_population(
         cities=cities,
@@ -73,19 +73,25 @@ def solve():
             demand = best_demand
             routes = best_routes
 
-        number_of_reproductions = int(population_size * 0.8)
-        number_of_mutations = population_size - number_of_reproductions
+        number_of_reproductions = int(population_size * 0.75)
+        number_of_mutations = int(
+            population_size - number_of_reproductions - population_size * percentage_of_elite_individuals)
+
+        elite_individuals_with_fitness = sorted(
+            individuals_with_fitness_value, reverse=True, key=lambda x: x[1])
+
+        elite_individuals = list(
+            map(lambda x: x[0], elite_individuals_with_fitness))
 
         parents = [select_parents(individuals_with_fitness_value)
                    for _ in range(0, number_of_reproductions)]
-
         reproduction_products = [
             reproduce(parent1, parent2) for (parent1, parent2) in parents]
 
         mutation_products = [mutate(select_individual(
             individuals_with_fitness_value), cars_count) for _ in range(0, number_of_mutations)]
 
-        population = reproduction_products + mutation_products
+        population = reproduction_products + mutation_products + elite_individuals[0:int(population_size*percentage_of_elite_individuals)]
 
     log(
         f'''
