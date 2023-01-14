@@ -7,7 +7,7 @@ def fitness(
     car_capacity: int,
     cities_demand: dict,
     cities_graph: Graph,
-) -> float:
+):
     cities = [city for city in cities_demand.keys()]
 
     car_routes = extract_rotues_for_cars(
@@ -36,7 +36,7 @@ def fitness(
     total = distance + penalty  # TODO adjust parameters
     fitness = 10_000 / total  # since higher is better
 
-    return (fitness, distance, demand_satisfied)
+    return (fitness, distance, demand_satisfied, car_routes)
 
 
 def calculate_distance(routes: list, cities_graph: Graph) -> float:

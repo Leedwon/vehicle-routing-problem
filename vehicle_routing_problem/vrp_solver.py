@@ -25,6 +25,7 @@ def solve():
     current_best_fitness = 0
     distance = 0
     demand = 0
+    routes = []
 
     populations_limit = 1_000
 
@@ -53,7 +54,7 @@ def solve():
             (individual, fitness[0]) for (individual, fitness) in individuals_with_fitness
         ]
 
-        (best_fitness, best_distance, best_demand) = max(
+        (best_fitness, best_distance, best_demand, best_routes) = max(
             individuals_with_fitness, key=lambda x: x[1][0]
         )[1]  # TODO refactor, that's a bit cryptic
 
@@ -70,6 +71,7 @@ def solve():
             current_best_fitness = best_fitness
             distance = best_distance
             demand = best_demand
+            routes = best_routes
 
         number_of_reproductions = int(population_size * 0.8)
         number_of_mutations = population_size - number_of_reproductions
@@ -92,5 +94,6 @@ def solve():
             best_distance = {distance},
             best_demand = {demand}
             total_demand = {total_demand}
+            routes = {routes}
             '''
     )
