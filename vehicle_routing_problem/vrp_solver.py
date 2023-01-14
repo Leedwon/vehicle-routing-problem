@@ -15,7 +15,7 @@ def solve():
     starting_city = "Kraków"
     cars_count = 5
     car_capacity = 1_000
-    population_size = 100
+    population_size = 500
     cities_demand = parse_cities_demand("resources/cities_demand.txt")
     cities = [city for city in cities_demand.keys()]
     total_demand = sum(cities_demand.values())
